@@ -5,7 +5,9 @@
  * Author: jp
  */
 
-#include "utils/Includes.h"
+#include "Includes.h"
+#include "SemaphoreArray.h"
+#include "SharedMemory.h"
 
 using namespace std;
 

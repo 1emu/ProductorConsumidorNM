@@ -24,8 +24,8 @@ typedef struct{
 } QueueMessage;
 
 typedef struct{
-	long receiverId;
-	int amountOfItems[3];
+	bool productionFinished = false;
+	int item;
 } Store;
 
 enum Items {PROCESSOR, MOTHERBOARD, DISK};

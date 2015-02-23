@@ -6,13 +6,13 @@
  */
 
 #include "Includes.h"
-#include "Queue.h"
+#include "SemaphoreArray.h"
+#include "SharedMemory.h"
 
 int main(){
-    Queue::destroy(RECEIVER_QUEUE_ID);
-    Queue::destroy(SENDER_QUEUE_ID);
-//  SemaphoreArray::destroy(WRITERS_MUTEX_ID);
-//	SharedMemory::destroy(SHARED_MEMORY_ID, sizeof(Coin));
+	SemaphoreArray::destroy(PRODUCERS_SEMAPHORE_ID);
+	SemaphoreArray::destroy(CONSUMERS_SEMAPHORE_ID);
+	SharedMemory::destroy(SHARED_MEMORY_ID, sizeof(Store));
     std::string msg = "Termination complete.";
     Colors::writeout(msg, UNDERLINEDGREEN);
     return 0;

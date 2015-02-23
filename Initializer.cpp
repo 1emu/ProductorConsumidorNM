@@ -5,7 +5,9 @@
  * Author: jp
  */
 
-#include "utils/Includes.h"
+#include "Includes.h"
+#include "SemaphoreArray.h"
+#include "SharedMemory.h"
 
 using namespace std;
 
@@ -26,7 +28,7 @@ int main(int argc, char** argv) {
 	int amountOfProducers = atoi(argv[1]);
 	int amountOfConsumers = atoi(argv[2]);
 
-	Store* store = (Store*) SharedMemory::create(SHARED_MEMORY_ID, sizeof(Store));
+	SharedMemory::create(SHARED_MEMORY_ID, sizeof(Store));
 	SemaphoreArray::create(PRODUCERS_SEMAPHORE_ID);
 	SemaphoreArray::create(CONSUMERS_SEMAPHORE_ID);
 	Process::announce(programName, id, LIGHTBLUE, "ipcs succesfully created.");

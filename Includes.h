@@ -39,5 +39,6 @@
 #include "Process.h"
 #include "Structures.h"
 #include "Queue.h"
+#include "Defaults.h"
 
 #endif /* INCLUDES_H_ */

@@ -4,7 +4,7 @@ DFLAGS = -Wall -g
 #LFLAGS = -lpthread
 CFLAGS = $(DFLAGS) $(OFLAGS) $(LFLAGS)
 
-PROGS = Main Terminator
+PROGS = Initializer ProducerProcess ConsumerProcess Terminator
 OBJS = Configuration.o Utils.o Colors.o Process.o Queue.o SemaphoreArray.o SharedMemory.o Semaphore.o 
 
 all: $(PROGS) clean
