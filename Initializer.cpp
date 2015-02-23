@@ -12,33 +12,30 @@ using namespace std;
 int main(int argc, char** argv) {
 
 	char* programName = argv[0];
+	int id = getpid();
 	stringstream ss;
 
 	// Si se ingresan menos argumentos de los necesarios
 	if (argc < 3) {
 		string msg = "Usage ";
-		msg = msg + programName + " <-readers> <-writers> \n";
+		msg = msg + programName + " <-amountOfProducers> <-amountOfConsumers> \n";
 		Colors::writeerr(msg, RED);
 		exit(EXIT_FAILURE);
 	}
 
-	int amountOfReaders = atoi(argv[1]);
-	int amountOfWriters = atoi(argv[2]);
-	int id = MAIN_PROGRAM_ID;
+	int amountOfProducers = atoi(argv[1]);
+	int amountOfConsumers = atoi(argv[2]);
+
+	Store* store = (Store*) SharedMemory::create(SHARED_MEMORY_ID, sizeof(Store));
+	SemaphoreArray::create(PRODUCERS_SEMAPHORE_ID);
+	SemaphoreArray::create(CONSUMERS_SEMAPHORE_ID);
+	Process::announce(programName, id, LIGHTBLUE, "ipcs succesfully created.");
 
 
-	Coin* coin = (Coin*) SharedMemory::create(SHARED_MEMORY_ID, sizeof(Coin));
-	coin->coinValue = INITIAL_COIN_VALUE;
 
-	SemaphoreArray::create(READERS_MUTEX_ID);
-	SemaphoreArray::create(WRITERS_MUTEX_ID);
-
-	Process::announce(MAIN_PROGRAM_NAME, id, LIGHTBLUE, "ipcs creados.");
-
-	Process::createProcesses(R_PROCESS_NAME, amountOfReaders, R_FIRST_PROCESS_ID);
-	Process::createProcesses(W_PROCESS_NAME, amountOfWriters, W_FIRST_PROCESS_ID);
-
-	Process::announce(MAIN_PROGRAM_NAME, id, LIGHTBLUE, "inicializacion completa.");
+	Process::createProcesses(PRODUCER_PROCESS_NAME, amountOfProducers);
+	Process::createProcesses(CONSUMER_PROCESS_NAME, amountOfConsumers);
+	Process::announce(programName, id, LIGHTBLUE, "inicialization complete.");
 
 }
 
